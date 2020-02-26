@@ -17,6 +17,7 @@ package org.apache.shiro.spring.boot.sms.authc;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -30,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 短消息认证 (authentication)过滤器
@@ -38,6 +40,11 @@ import com.alibaba.fastjson.JSONObject;
 public class SmsAuthenticatingFilter extends AbstractTrustableAuthenticatingFilter {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SmsAuthenticatingFilter.class);
+	public static final String SPRING_SECURITY_FORM_MOBILE_KEY = "mobile";
+    public static final String SPRING_SECURITY_FORM_CODE_KEY = "code";
+
+    private String mobileParameter = SPRING_SECURITY_FORM_MOBILE_KEY;
+    private String codeParameter = SPRING_SECURITY_FORM_CODE_KEY;
 	
 	public SmsAuthenticatingFilter() {
 		super();
@@ -113,5 +120,14 @@ public class SmsAuthenticatingFilter extends AbstractTrustableAuthenticatingFilt
 			return false;
 		}
 	}
+	
+    protected String obtainMobile(HttpServletRequest request) {
+        return request.getParameter(mobileParameter);
+    }
+
+    protected String obtainCode(HttpServletRequest request) {
+        return request.getParameter(codeParameter);
+    }
+
 
 }
