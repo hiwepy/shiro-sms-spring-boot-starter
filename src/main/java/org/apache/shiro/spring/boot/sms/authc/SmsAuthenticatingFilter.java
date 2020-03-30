@@ -15,6 +15,8 @@
  */
 package org.apache.shiro.spring.boot.sms.authc;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +33,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 短消息认证 (authentication)过滤器
@@ -54,7 +55,7 @@ public class SmsAuthenticatingFilter extends AbstractTrustableAuthenticatingFilt
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
 		// 判断是否无状态
 		if (isSessionStateless()) {
-			// Step 1、生成Shiro Token 
+			// Step 1、生成 Shiro Token 
 			AuthenticationToken token = createToken(request, response);
 			try {
 				//Step 2、委托给Realm进行登录  
@@ -88,7 +89,8 @@ public class SmsAuthenticatingFilter extends AbstractTrustableAuthenticatingFilt
 				}
 				
 				WebUtils.toHttp(response).setStatus(HttpStatus.SC_BAD_REQUEST);
-				response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+				response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
 				
 				// Response Authentication status information
 				JSONObject.writeJSONString(response.getWriter(), AuthcResponse.fail(mString));
@@ -108,7 +110,8 @@ public class SmsAuthenticatingFilter extends AbstractTrustableAuthenticatingFilt
 			if (WebUtils.isAjaxRequest(request)) {
 				
 				WebUtils.toHttp(response).setStatus(HttpStatus.SC_UNAUTHORIZED);
-				response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+				response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
 				
 				// Response Authentication status information
 				JSONObject.writeJSONString(response.getWriter(), AuthcResponse.fail(mString));

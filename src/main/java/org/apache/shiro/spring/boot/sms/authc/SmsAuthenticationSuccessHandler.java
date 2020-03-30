@@ -15,29 +15,43 @@
  */
 package org.apache.shiro.spring.boot.sms.authc;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.biz.authc.AuthenticationSuccessHandler;
 import org.apache.shiro.biz.authz.principal.ShiroPrincipal;
 import org.apache.shiro.biz.utils.SubjectUtils;
 import org.apache.shiro.biz.utils.WebUtils;
+import org.apache.shiro.biz.web.servlet.http.HttpStatus;
+import org.apache.shiro.spring.boot.jwt.JwtPayloadRepository;
 import org.apache.shiro.spring.boot.sms.token.SmsLoginToken;
+import org.apache.shiro.spring.boot.utils.SubjectJwtUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.http.MediaType;
 
-import com.google.common.collect.Maps;
+import com.alibaba.fastjson.JSONObject;
 
 
 public class SmsAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-
+	
+	private JwtPayloadRepository jwtPayloadRepository;
+	/** If Check JWT Validity. */
+	private boolean checkExpiry = false;
+	
 	public SmsAuthenticationSuccessHandler() {
 	}
 	 
+	public SmsAuthenticationSuccessHandler(JwtPayloadRepository jwtPayloadRepository, boolean checkExpiry) {
+		super();
+		this.jwtPayloadRepository = jwtPayloadRepository;
+		this.checkExpiry = checkExpiry;
+	}
+	
 	@Override
 	public boolean supports(AuthenticationToken token) {
 		return SubjectUtils.isAssignableFrom(token.getClass(), SmsLoginToken.class);
@@ -47,18 +61,42 @@ public class SmsAuthenticationSuccessHandler implements AuthenticationSuccessHan
 	public void onAuthenticationSuccess(AuthenticationToken token, ServletRequest request, ServletResponse response,
 			Subject subject) {
 		
-		HttpServletRequest httpRequest = WebUtils.toHttp(request);
-		HttpServletResponse httpResponse = WebUtils.toHttp(response);
+		try {
+			
+			String tokenString = "";
+			// 账号首次登陆标记
+			if(ShiroPrincipal.class.isAssignableFrom(subject.getPrincipal().getClass())) {
+				// JSON Web Token (JWT)
+				tokenString = getJwtPayloadRepository().issueJwt(token, subject, request, response);
+			} 
+			
+			Map<String, Object> tokenMap = SubjectJwtUtils.tokenMap(subject, tokenString);
+			
+			WebUtils.toHttp(response).setStatus(HttpStatus.SC_OK);
+			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+			response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+			JSONObject.writeJSONString(response.getWriter(), tokenMap);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		ShiroPrincipal principal = (ShiroPrincipal) subject.getPrincipal();
+	}
 
-		Map<String, Object> map = Maps.newHashMap();
-		map.put("userid", principal.getUserid());
-		map.put("userkey", principal.getUserkey());
-		map.put("username", principal.getUsername());
-		map.put("roles", principal.getRoles());
-		map.put("perms", principal.getRoles());
+	public JwtPayloadRepository getJwtPayloadRepository() {
+		return jwtPayloadRepository;
+	}
 
+	public void setJwtPayloadRepository(JwtPayloadRepository jwtPayloadRepository) {
+		this.jwtPayloadRepository = jwtPayloadRepository;
+	}
+
+	public boolean isCheckExpiry() {
+		return checkExpiry;
+	}
+
+	public void setCheckExpiry(boolean checkExpiry) {
+		this.checkExpiry = checkExpiry;
 	}
 
 }

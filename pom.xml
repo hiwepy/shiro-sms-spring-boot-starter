@@ -372,6 +372,7 @@
         <maven-surefire-plugin.vertsion>2.22.1</maven-surefire-plugin.vertsion>
 		<maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
 		<spring-boot-starter-shiro-biz.version>1.0.5-SNAPSHOT</spring-boot-starter-shiro-biz.version>
+		<spring-boot-starter-shiro-jwt.version>1.1.0-SNAPSHOT</spring-boot-starter-shiro-jwt.version>
 	</properties>
 	
 	<dependencyManagement>
@@ -381,6 +382,12 @@
 				<groupId>com.github.hiwepy</groupId>
 				<artifactId>shiro-biz-spring-boot-starter</artifactId>
 				<version>${spring-boot-starter-shiro-biz.version}</version>
+			</dependency>
+			<!-- https://github.com/hiwepy/shiro-jwt-spring-boot-starter -->
+			<dependency>
+				<groupId>com.github.hiwepy</groupId>
+				<artifactId>shiro-jwt-spring-boot-starter</artifactId>
+				<version>${spring-boot-starter-shiro-jwt.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -446,10 +453,15 @@
 			<artifactId>spring-context-support</artifactId>
 		</dependency>
 		
-		<!-- https://github.com/hiwepy/spring-boot-starter-shiro-biz -->
+		<!-- https://github.com/hiwepy/shiro-biz-spring-boot-starter -->
 		<dependency>
 			<groupId>com.github.hiwepy</groupId>
 			<artifactId>shiro-biz-spring-boot-starter</artifactId>
+		</dependency>
+		<!-- https://github.com/hiwepy/shiro-jwt-spring-boot-starter -->
+		<dependency>
+			<groupId>com.github.hiwepy</groupId>
+			<artifactId>shiro-jwt-spring-boot-starter</artifactId>
 		</dependency>
 		
 	</dependencies>
