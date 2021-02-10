@@ -83,6 +83,11 @@ public class SmsAuthenticationSuccessHandler implements AuthenticationSuccessHan
 
 	}
 
+	@Override
+	public int getOrder() {
+		return Integer.MAX_VALUE - 3;
+	}
+	
 	public JwtPayloadRepository getJwtPayloadRepository() {
 		return jwtPayloadRepository;
 	}
