@@ -5,7 +5,7 @@ import org.apache.shiro.spring.boot.sms.token.SmsLoginToken;
 
 /**
  * Sms AuthorizingRealm
- * @author 		： <a href="https://github.com/hiwepy">hiwepy</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 public class SmsAuthorizingRealm extends AbstractAuthorizingRealm {
 

@@ -19,7 +19,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 
 /**
  * 验证码接收器
- * @author 		： <a href="https://github.com/hiwepy">wandl</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 public interface SmsProvider {
 
