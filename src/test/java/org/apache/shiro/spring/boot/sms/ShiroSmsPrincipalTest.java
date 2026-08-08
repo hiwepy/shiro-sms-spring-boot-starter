@@ -15,13 +15,24 @@
  */
 package org.apache.shiro.spring.boot.sms;
 
-import org.apache.shiro.biz.authz.principal.ShiroPrincipal;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * TODO
+ * Unit tests for {{ @link ShiroSmsPrincipal }}.
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
-@SuppressWarnings("serial")
-public class ShiroSmsPrincipal extends ShiroPrincipal {
-	
+@DisplayName("ShiroSmsPrincipal Tests")
+class ShiroSmsPrincipalTest {
+
+    @Test
+    @DisplayName("Instance can be created via constructor")
+    void testInstantiation() {
+        ShiroSmsPrincipal instance = new ShiroSmsPrincipal();
+        assertThat(instance).isNotNull();
+    }
 }
