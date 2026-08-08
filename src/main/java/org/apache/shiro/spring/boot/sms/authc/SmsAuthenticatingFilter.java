@@ -17,9 +17,9 @@ package org.apache.shiro.spring.boot.sms.authc;
 
 import java.nio.charset.StandardCharsets;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -36,7 +36,7 @@ import com.alibaba.fastjson.JSONObject;
 
 /**
  * 短消息认证 (authentication)过滤器
- * @author ： <a href="https://github.com/hiwepy">hiwepy</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 public class SmsAuthenticatingFilter extends AbstractTrustableAuthenticatingFilter {
 

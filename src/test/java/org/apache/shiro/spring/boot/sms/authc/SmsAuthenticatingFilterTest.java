@@ -13,15 +13,26 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.apache.shiro.spring.boot.sms;
+package org.apache.shiro.spring.boot.sms.authc;
 
-import org.apache.shiro.biz.authz.principal.ShiroPrincipal;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * TODO
+ * Unit tests for {{ @link SmsAuthenticatingFilter }}.
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
-@SuppressWarnings("serial")
-public class ShiroSmsPrincipal extends ShiroPrincipal {
-	
+@DisplayName("SmsAuthenticatingFilter Tests")
+class SmsAuthenticatingFilterTest {
+
+    @Test
+    @DisplayName("Instance can be created via constructor")
+    void testInstantiation() {
+        SmsAuthenticatingFilter instance = new SmsAuthenticatingFilter();
+        assertThat(instance).isNotNull();
+    }
 }
