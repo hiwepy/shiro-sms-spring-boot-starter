@@ -17,14 +17,15 @@ package org.apache.shiro.spring.boot.sms.authc;
 
 import java.nio.charset.StandardCharsets;
 
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.biz.authc.AuthcResponse;
-import org.apache.shiro.biz.utils.WebUtils;
+import org.apache.shiro.biz.utils.WebUtils2;
+import org.apache.shiro.web.util.WebUtils;
 import org.apache.shiro.biz.web.filter.authc.AbstractTrustableAuthenticatingFilter;
 import org.apache.shiro.biz.web.servlet.http.HttpStatus;
 import org.apache.shiro.subject.Subject;
@@ -107,7 +108,7 @@ public class SmsAuthenticatingFilter extends AbstractTrustableAuthenticatingFilt
 			}
 			
 			// Ajax 请求：响应json数据对象
-			if (WebUtils.isAjaxRequest(request)) {
+				if (WebUtils2.isAjaxRequest(request)) {
 				
 				WebUtils.toHttp(response).setStatus(HttpStatus.SC_OK);
 				response.setContentType(MediaType.APPLICATION_JSON_VALUE);

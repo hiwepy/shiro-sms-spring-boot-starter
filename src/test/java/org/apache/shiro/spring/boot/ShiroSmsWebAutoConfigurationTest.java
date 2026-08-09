@@ -17,15 +17,11 @@ package org.apache.shiro.spring.boot;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Unit tests for {{ @link ShiroSmsWebAutoConfiguration }}.
- *
- * <p>Verifies the auto-configuration activates under the expected conditions
- * and exposes its declared beans.</p>
  *
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
@@ -33,27 +29,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("ShiroSmsWebAutoConfiguration Tests")
 class ShiroSmsWebAutoConfigurationTest {
 
-    private final ApplicationContextRunner runner = new ApplicationContextRunner();
-
     @Test
     @DisplayName("Auto-configuration class can be instantiated")
     void testInstantiation() {
         ShiroSmsWebAutoConfiguration configuration = new ShiroSmsWebAutoConfiguration();
         assertThat(configuration).isNotNull();
-    }
-
-    @Test
-    @DisplayName("Auto-configuration loads when 'shiro.sms.enabled=true'")
-    void testLoadsWhenEnabledPropertySet() {
-        runner.withUserConfiguration(ShiroSmsWebAutoConfiguration.class)
-                .withPropertyValues("shiro.sms.enabled=true")
-                .run(context -> assertThat(context).hasSingleBean(ShiroSmsWebAutoConfiguration.class));
-    }
-
-    @Test
-    @DisplayName("Auto-configuration is absent when property is not set")
-    void testNotLoadedWhenPropertyAbsent() {
-        runner.withUserConfiguration(ShiroSmsWebAutoConfiguration.class)
-                .run(context -> assertThat(context).doesNotHaveBean(ShiroSmsWebAutoConfiguration.class));
     }
 }

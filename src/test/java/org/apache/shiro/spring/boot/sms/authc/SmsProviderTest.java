@@ -15,6 +15,7 @@
  */
 package org.apache.shiro.spring.boot.sms.authc;
 
+import org.apache.shiro.authc.AuthenticationToken;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -30,9 +31,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SmsProviderTest {
 
     @Test
-    @DisplayName("Instance can be created via constructor")
-    void testInstantiation() {
-        SmsProvider instance = new SmsProvider();
-        assertThat(instance).isNotNull();
+    @DisplayName("Interface can be implemented")
+    void testImplementation() {
+        SmsProvider provider = new SmsProvider() {
+            @Override
+            public String getSms(AuthenticationToken token) {
+                return "123456";
+            }
+        };
+        assertThat(provider).isNotNull();
+        assertThat(provider.getSms(null)).isEqualTo("123456");
     }
 }
