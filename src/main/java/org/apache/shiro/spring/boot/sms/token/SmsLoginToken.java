@@ -19,7 +19,7 @@ import org.apache.shiro.biz.authc.token.DefaultAuthenticationToken;
 
 /**
  * Sms Login Token
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 @SuppressWarnings("serial")
 public class SmsLoginToken extends DefaultAuthenticationToken {
