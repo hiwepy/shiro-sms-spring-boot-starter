@@ -20,6 +20,7 @@ import org.apache.shiro.biz.authc.token.DefaultAuthenticationToken;
 /**
  * Sms Login Token
  * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
  */
 @SuppressWarnings("serial")
 public class SmsLoginToken extends DefaultAuthenticationToken {
@@ -27,18 +28,38 @@ public class SmsLoginToken extends DefaultAuthenticationToken {
 	private String mobile;
 	private String code;
 	
+	/**
+	 * Returns the mobile.
+	 *
+	 * @return the mobile
+	 */
 	public String getMobile() {
 		return mobile;
 	}
 	
+	/**
+	 * Sets the mobile.
+	 *
+	 * @param mobile the mobile
+	 */
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 	
+	/**
+	 * Returns the code.
+	 *
+	 * @return the code
+	 */
 	public String getCode() {
 		return code;
 	}
 	
+	/**
+	 * Sets the code.
+	 *
+	 * @param code the code
+	 */
 	public void setCode(String code) {
 		this.code = code;
 	}

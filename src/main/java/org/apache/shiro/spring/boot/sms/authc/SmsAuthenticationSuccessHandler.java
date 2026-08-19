@@ -37,6 +37,12 @@ import org.springframework.http.MediaType;
 import com.alibaba.fastjson.JSONObject;
 
 
+/**
+ * <p>Handler for SMS Authentication Success.</p>
+ *
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
+ */
 public class SmsAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 	
 	private JwtPayloadRepository jwtPayloadRepository;
@@ -53,6 +59,12 @@ public class SmsAuthenticationSuccessHandler implements AuthenticationSuccessHan
 	}
 	
 	@Override
+	/**
+	 * supports.
+	 *
+	 * @param token the token
+	 * @return the result
+	 */
 	public boolean supports(AuthenticationToken token) {
 		return SubjectUtils.isAssignableFrom(token.getClass(), SmsLoginToken.class);
 	}
@@ -84,22 +96,47 @@ public class SmsAuthenticationSuccessHandler implements AuthenticationSuccessHan
 	}
 
 	@Override
+	/**
+	 * Returns the order.
+	 *
+	 * @return the order
+	 */
 	public int getOrder() {
 		return Integer.MAX_VALUE - 3;
 	}
 	
+	/**
+	 * Returns the jwt payload repository.
+	 *
+	 * @return the jwt payload repository
+	 */
 	public JwtPayloadRepository getJwtPayloadRepository() {
 		return jwtPayloadRepository;
 	}
 
+	/**
+	 * Sets the jwt payload repository.
+	 *
+	 * @param jwtPayloadRepository the jwt payload repository
+	 */
 	public void setJwtPayloadRepository(JwtPayloadRepository jwtPayloadRepository) {
 		this.jwtPayloadRepository = jwtPayloadRepository;
 	}
 
+	/**
+	 * Returns the check expiry.
+	 *
+	 * @return the check expiry
+	 */
 	public boolean isCheckExpiry() {
 		return checkExpiry;
 	}
 
+	/**
+	 * Sets the check expiry.
+	 *
+	 * @param checkExpiry the check expiry
+	 */
 	public void setCheckExpiry(boolean checkExpiry) {
 		this.checkExpiry = checkExpiry;
 	}

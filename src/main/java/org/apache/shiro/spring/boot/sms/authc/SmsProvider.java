@@ -20,6 +20,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 /**
  * 验证码接收器
  * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
  */
 public interface SmsProvider {
 
